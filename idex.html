@@ -1,1 +1,842 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="케어밀 - 우리 가족 건강을 위한 AI 맞춤 식단 관리 플랫폼">
+    <title>케어밀 | AI 기반 가족 맞춤 식단 관리</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* 헤더 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 180px 40px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="100" cy="100" r="50" fill="rgba(255,255,255,0.1)"/><circle cx="900" cy="400" r="80" fill="rgba(255,255,255,0.05)"/><circle cx="600" cy="200" r="60" fill="rgba(255,255,255,0.08)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 18px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 18px 40px;
+            border: 2px solid white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 문제점 섹션 */
+        .problem {
+            padding: 100px 40px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #212529;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: #6c757d;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .problem-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .problem-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #212529;
+        }
+
+        .problem-card p {
+            color: #6c757d;
+            font-size: 16px;
+        }
+
+        /* 솔루션 섹션 */
+        .solution {
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .solution-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #212529;
+        }
+
+        .feature-text p {
+            font-size: 18px;
+            color: #6c757d;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+            color: #495057;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .feature-image {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 기능 섹션 */
+        .features {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-card h4 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* 대상 고객 섹션 */
+        .target {
+            padding: 100px 40px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .target-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .target-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
+        }
+
+        .target-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .target-card h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #212529;
+        }
+
+        .target-card p {
+            color: #6c757d;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* 통계 섹션 */
+        .stats {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* 요금제 섹션 */
+        .pricing {
+            padding: 100px 40px;
+            background: white;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 30px;
+            padding: 50px 40px;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.08) translateY(-10px);
+        }
+
+        .plan-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .plan-price span {
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .plan-features li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .pricing-card.featured .plan-features li::before {
+            color: white;
+        }
+
+        .pricing-card:not(.featured) .plan-features li::before {
+            color: #667eea;
+        }
+
+        .plan-button {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:not(.featured) .plan-button {
+            background: #667eea;
+            color: white;
+        }
+
+        .pricing-card.featured .plan-button {
+            background: white;
+            color: #667eea;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* CTA 섹션 */
+        .final-cta {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .email-signup {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+        }
+
+        .email-signup input {
+            flex: 1;
+            padding: 18px 25px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .email-signup button {
+            padding: 18px 40px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .email-signup button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* 푸터 */
+        footer {
+            background: #212529;
+            color: white;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .feature-row {
+                flex-direction: column !important;
+                gap: 40px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .email-signup {
+                flex-direction: column;
+            }
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <nav>
+            <div class="logo">🍽️ 케어밀</div>
+            <ul class="nav-links">
+                <li><a href="#features">기능</a></li>
+                <li><a href="#target">대상</a></li>
+                <li><a href="#pricing">요금제</a></li>
+                <li><a href="#contact">문의</a></li>
+            </ul>
+            <a href="#signup" class="cta-button">무료로 시작하기</a>
+        </nav>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>우리 가족 건강을 위한<br>AI 맞춤 식단 관리</h1>
+            <p>냉장고를 찍으면 가족 구성원의 건강 상태에 맞는<br>맞춤형 식단을 자동으로 추천해드려요</p>
+            <div class="hero-buttons">
+                <a href="#signup" class="btn-primary">무료로 시작하기</a>
+                <a href="#demo" class="btn-secondary">데모 보기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 문제점 섹션 -->
+    <section class="problem fade-in">
+        <h2 class="section-title">이런 고민 있으신가요?</h2>
+        <p class="section-subtitle">케어밀이 모든 고민을 해결해드립니다</p>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">😰</div>
+                <h3>매일 메뉴 고민</h3>
+                <p>가족 구성원마다 다른 건강 상태, 무엇을 만들어야 할지 막막해요</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🩺</div>
+                <h3>만성질환 관리</h3>
+                <p>당뇨, 고혈압 환자를 위한 식단을 따로 준비하기 너무 어려워요</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🗑️</div>
+                <h3>식재료 낭비</h3>
+                <p>냉장고 속 재료가 상해서 버리는 일이 너무 많아요</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">⏰</div>
+                <h3>시간 부족</h3>
+                <p>맞벌이 가정, 돌봄 가족을 위한 식사 준비 시간이 부족해요</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 솔루션 섹션 -->
+    <section class="solution fade-in">
+        <div class="solution-content">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <h2 class="section-title">케어밀이 제공하는 솔루션</h2>
+                <p class="section-subtitle">하나의 앱으로 모든 식단 관리를 해결하세요</p>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3>📷 냉장고 스캔으로<br>간편한 재료 관리</h3>
+                    <p>스마트폰 카메라로 냉장고를 촬영하면 AI가 자동으로 식재료를 인식합니다. 인식되지 않은 재료는 직접 추가할 수 있어요.</p>
+                    <ul class="feature-list">
+                        <li>AI 이미지 인식으로 식재료 자동 파악</li>
+                        <li>수량과 단위까지 정확하게 관리</li>
+                        <li>유통기한 알림으로 식재료 낭비 제로</li>
+                        <li>재료 부족시 자동 쇼핑 리스트 생성</li>
+                    </ul>
+                </div>
+                <div class="feature-image">📱</div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3>👨‍👩‍👧 가족 구성원별<br>맞춤형 식단 추천</h3>
+                    <p>당뇨병 환자, 다이어트 중인 가족, 성장기 자녀까지 각자에게 딱 맞는 식단을 동시에 제공합니다.</p>
+                    <ul class="feature-list">
+                        <li>만성질환(당뇨, 고혈압, 고지혈증) 맞춤 식단</li>
+                        <li>복용 중인 약물과 음식 상호작용 체크</li>
+                        <li>알레르기 자동 필터링</li>
+                        <li>오늘 활동량과 이미 먹은 음식 고려</li>
+                        <li>개인별 칼로리, 영양소 목표 설정</li>
+                    </ul>
+                </div>
+                <div class="feature-image">🎯</div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3>🤖 AI 기반<br>지능형 식단 자동 생성</h3>
+                    <p>냉장고 재료, 가족의 건강 상태, 오늘 활동량을 종합 분석해 최적의 식단을 3가지 추천해드려요.</p>
+                    <ul class="feature-list">
+                        <li>점심 과식? 저녁은 자동으로 가볍게 조정</li>
+                        <li>운동 많이 했다면 단백질 많은 메뉴 추천</li>
+                        <li>혈당 변화 추적으로 식단 최적화</li>
+                        <li>계절 제철 재료 우선 사용</li>
+                    </ul>
+                </div>
+                <div class="feature-image">🧠</div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3>📊 통합 건강 데이터<br>한눈에 관리</h3>
+                    <p>갤럭시 워치, 애플 워치, 혈당측정기 등 다양한 디바이스와 연동해 건강 데이터를 통합 관리합니다.</p>
+                    <ul class="feature-list">
+                        <li>웨어러블 기기 자동 연동</li>
+                        <li>식사 기록, 운동량, 혈당 통합 분석</li>
+                        <li>주간/월간 건강 리포트 제공</li>
+                        <li>가족 간 건강 정보 공유 (선택)</li>
+                    </ul>
+                </div>
+                <div class="feature-image">⌚</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 기능 섹션 -->
+    <section id="features" class="features fade-in">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 class="section-title" style="color: white;">모든 기능이 하나의 앱에</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">통합 관리로 편리함을 극대화했습니다</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h4>🛒 스마트 쇼핑</h4>
+                <p>부족한 재료 자동 감지, 최저가 비교, 원클릭 주문까지</p>
+            </div>
+            <div class="feature-card">
+                <h4>👨‍⚕️ 영양사 상담</h4>
+                <p>전문 영양사와 1:1 화상 상담 (프리미엄)</p>
+            </div>
+            <div class="feature-card">
+                <h4>🏥 의료기관 연계</h4>
+                <p>병원 영양과 데이터 공유로 더 정확한 관리</p>
+            </div>
+            <div class="feature-card">
+                <h4>👨‍👩‍👧‍👦 돌봄자 네트워크</h4>
+                <p>요양보호사, 가족과 식사 정보 실시간 공유</p>
+            </div>
+            <div class="feature-card">
+                <h4>📈 상세 영양 분석</h4>
+                <p>84가지 영양소 추적, 미네랄까지 상세 분석</p>
+            </div>
+            <div class="feature-card">
+                <h4>🔔 스마트 알림</h4>
+                <p>식사 시간, 혈당 측정, 약 복용 알림</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 대상 고객 섹션 -->
+    <section id="target" class="target fade-in">
+        <h2 class="section-title">이런 분들께 추천해요</h2>
+        <p class="section-subtitle">케어밀은 모든 가정의 건강한 식탁을 만들어
