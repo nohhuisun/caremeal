@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="케어밀 - 우리 가족 건강을 위한 AI 맞춤 식단 관리 플랫폼">
-    <title>케어밀 | AI 기반 가족 맞춤 식단 관리</title>
+    <title>케어밀 | 냉장고 찍으면 가족 맞춤 식단 완성</title>
     <style>
         * {
             margin: 0;
@@ -19,467 +19,481 @@
             overflow-x: hidden;
         }
 
-        /* 헤더 */
-        header {
+        /* 네비게이션 - MyFitnessPal 스타일 */
+        nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
-            transition: all 0.3s;
+            padding: 15px 0;
         }
 
-        nav {
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: 0 30px;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 24px;
+            font-weight: 800;
+            color: #FF9A76;
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
-            gap: 40px;
+            gap: 35px;
             list-style: none;
+            align-items: center;
         }
 
-        .nav-links a {
+        .nav-menu a {
             color: #333;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 15px;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
+        .nav-menu a:hover {
+            color: #FF9A76;
         }
 
-        .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .nav-cta {
+            background: #FF9A76;
             color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
+            padding: 10px 25px;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
         }
 
-        .cta-button:hover {
+        .nav-cta:hover {
+            background: #FF8C61;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        /* 히어로 섹션 */
+        /* 히어로 섹션 - Eat This Much 스타일의 간결함 */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 180px 40px 100px;
+            margin-top: 70px;
+            background: linear-gradient(135deg, #FFB8A0 0%, #FFDAC8 100%);
+            color: #3d3d3d;
+            padding: 100px 30px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><circle cx="100" cy="100" r="50" fill="rgba(255,255,255,0.1)"/><circle cx="900" cy="400" r="80" fill="rgba(255,255,255,0.05)"/><circle cx="600" cy="200" r="60" fill="rgba(255,255,255,0.08)"/></svg>');
-            opacity: 0.5;
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 56px;
-            margin-bottom: 20px;
-            animation: fadeInUp 0.8s ease-out;
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.2;
         }
 
-        .hero p {
-            font-size: 24px;
+        .hero-subtitle {
+            font-size: 22px;
             margin-bottom: 40px;
             opacity: 0.95;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            line-height: 1.6;
         }
 
-        .hero-buttons {
+        .hero-demo {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 50px auto 0;
+            max-width: 800px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .demo-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .demo-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: #FF9A76;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
             display: flex;
             gap: 20px;
             justify-content: center;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+            margin-top: 40px;
+        }
+
+        .btn-large {
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
         }
 
         .btn-primary {
             background: white;
-            color: #667eea;
-            padding: 18px 40px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
+            color: #FF9A76;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(255, 154, 118, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: white;
-            padding: 18px 40px;
-            border: 2px solid white;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
+            color: #3d3d3d;
+            border: 2px solid #3d3d3d;
         }
 
         .btn-secondary:hover {
             background: white;
-            color: #667eea;
+            color: #FF9A76;
+            border-color: white;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 문제점 섹션 */
-        .problem {
-            padding: 100px 40px;
+        /* 실제 사용 예시 - 냉장고파먹기 스타일의 직관성 */
+        .how-it-works {
+            padding: 100px 30px;
             background: #f8f9fa;
+        }
+
+        .section-header {
             text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
         }
 
         .section-title {
             font-size: 42px;
+            font-weight: 800;
             margin-bottom: 20px;
             color: #212529;
         }
 
-        .section-subtitle {
+        .section-desc {
             font-size: 20px;
             color: #6c757d;
-            margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+        .work-flow {
             max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
-        .problem-card {
+        .work-card {
             background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
             transition: transform 0.3s;
         }
 
-        .problem-card:hover {
+        .work-card:hover {
             transform: translateY(-10px);
         }
 
-        .problem-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .problem-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #212529;
-        }
-
-        .problem-card p {
-            color: #6c757d;
-            font-size: 16px;
-        }
-
-        /* 솔루션 섹션 */
-        .solution {
-            padding: 100px 40px;
-            background: white;
-        }
-
-        .solution-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-row {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-            margin-bottom: 100px;
-        }
-
-        .feature-row:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .feature-text {
-            flex: 1;
-        }
-
-        .feature-text h3 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            color: #212529;
-        }
-
-        .feature-text p {
-            font-size: 18px;
-            color: #6c757d;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 30px;
-        }
-
-        .feature-list li {
-            padding: 12px 0;
-            padding-left: 30px;
-            position: relative;
-            font-size: 16px;
-            color: #495057;
-        }
-
-        .feature-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .feature-image {
-            flex: 1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 30px;
-            padding: 40px;
-            min-height: 400px;
+        .work-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #FFB8A0 0%, #FFDAC8 100%);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 120px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            font-size: 50px;
+            margin: 0 auto 25px;
         }
 
-        /* 기능 섹션 */
-        .features {
-            padding: 100px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            margin-top: 60px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s, background 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .feature-card h4 {
+        .work-title {
             font-size: 24px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feature-card p {
-            font-size: 16px;
-            opacity: 0.9;
-            line-height: 1.8;
-        }
-
-        /* 대상 고객 섹션 */
-        .target {
-            padding: 100px 40px;
-            background: #f8f9fa;
-            text-align: center;
-        }
-
-        .target-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 60px auto 0;
-        }
-
-        .target-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .target-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2);
-        }
-
-        .target-icon {
-            font-size: 70px;
-            margin-bottom: 20px;
-        }
-
-        .target-card h4 {
-            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 15px;
             color: #212529;
         }
 
-        .target-card p {
+        .work-desc {
+            font-size: 16px;
             color: #6c757d;
-            font-size: 15px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* 통계 섹션 */
-        .stats {
-            padding: 80px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        /* 사용자 증언 - MyFitnessPal 스타일 */
+        .testimonials {
+            padding: 100px 30px;
+            background: white;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
+        .testimonial-grid {
             max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 56px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-size: 18px;
-            opacity: 0.9;
-        }
-
-        /* 요금제 섹션 */
-        .pricing {
-            padding: 100px 40px;
-            background: white;
-            text-align: center;
-        }
-
-        .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 60px auto 0;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
         }
 
-        .pricing-card {
+        .testimonial-card {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+        }
+
+        .quote-mark {
+            font-size: 60px;
+            color: #FF9A76;
+            opacity: 0.3;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+        }
+
+        .testimonial-text {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #495057;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFB8A0 0%, #FFDAC8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .result-highlight {
+            background: #d4edda;
+            color: #155724;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* 기능 비교 - Eat This Much 스타일의 명확한 구분 */
+        .features {
+            padding: 100px 30px;
+            background: #f8f9fa;
+        }
+
+        .feature-comparison {
+            max-width: 1000px;
+            margin: 60px auto 0;
             background: white;
-            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: linear-gradient(135deg, #FFB8A0 0%, #FFDAC8 100%);
+            color: #3d3d3d;
+            padding: 25px;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e9ecef;
+            align-items: center;
+        }
+
+        .comparison-row:hover {
+            background: #f8f9fa;
+        }
+
+        .feature-name {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .check-yes {
+            color: #28a745;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .check-no {
+            color: #dc3545;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        /* 요금제 - 간결하고 명확하게 */
+        .pricing {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .pricing-toggle {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .toggle-container {
+            display: inline-flex;
+            background: #f8f9fa;
             border-radius: 30px;
-            padding: 50px 40px;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .toggle-option {
+            padding: 12px 35px;
+            border-radius: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border-color: #667eea;
+        .toggle-option.active {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .pricing-card.featured {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
+        .pricing-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .price-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .price-card:hover {
+            border-color: #FF9A76;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 154, 118, 0.2);
+        }
+
+        .price-card.featured {
+            border-color: #FF9A76;
+            border-width: 3px;
+            background: linear-gradient(135deg, #FFB8A0 0%, #FFDAC8 100%);
+            color: #3d3d3d;
             transform: scale(1.05);
         }
 
-        .pricing-card.featured:hover {
-            transform: scale(1.08) translateY(-10px);
+        .price-card.featured:hover {
+            transform: scale(1.08) translateY(-5px);
+        }
+
+        .plan-badge {
+            display: inline-block;
+            background: #FF9A76;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .price-card.featured .plan-badge {
+            background: white;
+            color: #FF9A76;
         }
 
         .plan-name {
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 15px;
         }
 
         .plan-price {
             font-size: 48px;
-            font-weight: bold;
+            font-weight: 800;
             margin: 20px 0;
         }
 
-        .plan-price span {
-            font-size: 20px;
-            font-weight: normal;
+        .price-period {
+            font-size: 18px;
+            font-weight: 400;
         }
 
         .plan-features {
@@ -490,63 +504,128 @@
 
         .plan-features li {
             padding: 12px 0;
-            padding-left: 30px;
-            position: relative;
-            font-size: 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .plan-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
+        .price-card.featured .plan-features li {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .feature-icon {
+            color: #FF9A76;
             font-weight: bold;
-            font-size: 20px;
         }
 
-        .pricing-card.featured .plan-features li::before {
-            color: white;
-        }
-
-        .pricing-card:not(.featured) .plan-features li::before {
-            color: #667eea;
+        .price-card.featured .feature-icon {
+            color: #3d3d3d;
         }
 
         .plan-button {
             width: 100%;
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 25px;
             border: none;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .pricing-card:not(.featured) .plan-button {
-            background: #667eea;
+        .price-card:not(.featured) .plan-button {
+            background: #FF9A76;
             color: white;
         }
 
-        .pricing-card.featured .plan-button {
+        .price-card.featured .plan-button {
             background: white;
-            color: #667eea;
+            color: #FF9A76;
         }
 
         .plan-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
-        /* CTA 섹션 */
+        /* FAQ - 아코디언 스타일 */
+        .faq {
+            padding: 100px 30px;
+            background: #f8f9fa;
+        }
+
+        .faq-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #212529;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-icon {
+            font-size: 24px;
+            color: #FF9A76;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 30px 25px;
+            color: #6c757d;
+            line-height: 1.8;
+        }
+
+        /* 최종 CTA */
         .final-cta {
-            padding: 100px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 100px 30px;
+            background: linear-gradient(135deg, #FFB8A0 0%, #FFDAC8 100%);
+            color: #3d3d3d;
             text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .final-cta h2 {
             font-size: 48px;
+            font-weight: 800;
             margin-bottom: 20px;
         }
 
@@ -556,14 +635,14 @@
             opacity: 0.95;
         }
 
-        .email-signup {
-            max-width: 600px;
+        .email-form {
+            max-width: 500px;
             margin: 0 auto;
             display: flex;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .email-signup input {
+        .email-input {
             flex: 1;
             padding: 18px 25px;
             border-radius: 30px;
@@ -571,31 +650,53 @@
             font-size: 16px;
         }
 
-        .email-signup button {
-            padding: 18px 40px;
-            background: white;
-            color: #667eea;
+        .email-submit {
+            padding: 18px 35px;
+            background: #212529;
+            color: white;
             border: none;
             border-radius: 30px;
-            font-weight: bold;
-            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .email-signup button:hover {
+        .email-submit:hover {
+            background: #000;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .trust-badges {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            text-align: center;
+        }
+
+        .badge-number {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .badge-label {
+            font-size: 14px;
+            opacity: 0.9;
         }
 
         /* 푸터 */
         footer {
             background: #212529;
             color: white;
-            padding: 60px 40px 30px;
+            padding: 60px 30px 30px;
         }
 
-        .footer-content {
+        .footer-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -605,237 +706,729 @@
         }
 
         .footer-section h4 {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 20px;
         }
 
-        .footer-section ul {
+        .footer-links {
             list-style: none;
         }
 
-        .footer-section li {
+        .footer-links li {
             margin-bottom: 10px;
         }
 
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.7);
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .footer-section a:hover {
+        .footer-links a:hover {
             color: white;
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
         }
 
         /* 반응형 */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
             .hero h1 {
                 font-size: 36px;
             }
 
-            .hero p {
-                font-size: 18px;
+            .demo-steps {
+                grid-template-columns: 1fr;
             }
 
-            .hero-buttons {
+            .cta-buttons {
                 flex-direction: column;
             }
 
-            .feature-row {
-                flex-direction: column !important;
-                gap: 40px;
+            .work-flow {
+                grid-template-columns: 1fr;
             }
 
-            .section-title {
-                font-size: 32px;
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 2fr 1fr 1fr;
+                font-size: 14px;
             }
 
-            .email-signup {
+            .email-form {
                 flex-direction: column;
             }
-        }
 
-        /* 스크롤 애니메이션 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s, transform 0.8s;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .nav-menu {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
-    <header>
-        <nav>
+    <!-- 네비게이션 -->
+    <nav>
+        <div class="nav-container">
             <div class="logo">🍽️ 케어밀</div>
-            <ul class="nav-links">
+            <ul class="nav-menu">
+                <li><a href="#how">사용법</a></li>
                 <li><a href="#features">기능</a></li>
-                <li><a href="#target">대상</a></li>
-                <li><a href="#pricing">요금제</a></li>
-                <li><a href="#contact">문의</a></li>
+                <li><a href="#pricing">요금</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#signup" class="nav-cta">무료 시작</a></li>
             </ul>
-            <a href="#signup" class="cta-button">무료로 시작하기</a>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <!-- 히어로 섹션 -->
     <section class="hero">
         <div class="hero-content">
-            <h1>우리 가족 건강을 위한<br>AI 맞춤 식단 관리</h1>
-            <p>냉장고를 찍으면 가족 구성원의 건강 상태에 맞는<br>맞춤형 식단을 자동으로 추천해드려요</p>
-            <div class="hero-buttons">
-                <a href="#signup" class="btn-primary">무료로 시작하기</a>
-                <a href="#demo" class="btn-secondary">데모 보기</a>
+            <h1>냉장고 찍으면<br>가족 맞춤 식단 완성</h1>
+            <p class="hero-subtitle">
+                당뇨병 환자, 다이어트중인 가족, 성장기 자녀까지<br>
+                각자에게 딱 맞는 건강 식단을 AI가 자동으로 만들어드려요
+            </p>
+            
+            <div class="hero-demo">
+                <h3 style="margin-bottom: 15px;">이렇게 간단합니다</h3>
+                
+                <!-- 음식 이미지 추가 -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 30px 0;">
+                    <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="height: 120px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 60px;">
+                            🥗
+                        </div>
+                        <p style="padding: 10px; font-size: 13px; font-weight: 600;">닭가슴살 샐러드</p>
+                    </div>
+                    <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="height: 120px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 60px;">
+                            🍲
+                        </div>
+                        <p style="padding: 10px; font-size: 13px; font-weight: 600;">두부 야채찌개</p>
+                    </div>
+                    <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                        <div style="height: 120px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 60px;">
+                            🍗
+                        </div>
+                        <p style="padding: 10px; font-size: 13px; font-weight: 600;">닭가슴살 야채볶음</p>
+                    </div>
+                </div>
+                
+                <div class="demo-steps">
+                    <div class="demo-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">냉장고 촬영</div>
+                        <div class="step-desc">스마트폰으로 냉장고를 찍기만 하세요</div>
+                    </div>
+                    <div class="demo-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">AI 분석</div>
+                        <div class="step-desc">재료와 가족 건강정보를 종합 분석</div>
+                    </div>
+                    <div class="demo-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">식단 완성</div>
+                        <div class="step-desc">맞춤 레시피 3가지 즉시 추천</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#signup" class="btn-large btn-primary">14일 무료 체험 시작</a>
+                <a href="#demo" class="btn-large btn-secondary">3분 데모 보기</a>
             </div>
         </div>
     </section>
 
-    <!-- 문제점 섹션 -->
-    <section class="problem fade-in">
-        <h2 class="section-title">이런 고민 있으신가요?</h2>
-        <p class="section-subtitle">케어밀이 모든 고민을 해결해드립니다</p>
-        <div class="problem-grid">
-            <div class="problem-card">
-                <div class="problem-icon">😰</div>
-                <h3>매일 메뉴 고민</h3>
-                <p>가족 구성원마다 다른 건강 상태, 무엇을 만들어야 할지 막막해요</p>
+    <!-- 사용 방법 -->
+    <section id="how" class="how-it-works">
+        <div class="section-header">
+            <h2 class="section-title">실제로 어떻게 사용하나요?</h2>
+            <p class="section-desc">케어밀 사용자들의 하루를 따라가 보세요</p>
+        </div>
+
+        <div class="work-flow">
+            <div class="work-card">
+                <div class="work-icon">📱</div>
+                <h3 class="work-title">아침 8시</h3>
+                <p class="work-desc">
+                    출근 전 냉장고를 촬영합니다. AI가 자동으로 12개 재료를 인식했어요. 인식 못한 두부는 직접 추가!
+                </p>
             </div>
-            <div class="problem-card">
-                <div class="problem-icon">🩺</div>
-                <h3>만성질환 관리</h3>
-                <p>당뇨, 고혈압 환자를 위한 식단을 따로 준비하기 너무 어려워요</p>
+
+            <div class="work-card">
+                <div class="work-icon">👨‍👩‍👧</div>
+                <h3 class="work-title">오후 3시</h3>
+                <p class="work-desc">
+                    앱이 자동으로 분석합니다. "어머니는 점심에 과식, 며느리는 다이어트 중, 아버지는 골프 많이 함" 모두 고려!
+                </p>
             </div>
-            <div class="problem-card">
-                <div class="problem-icon">🗑️</div>
-                <h3>식재료 낭비</h3>
-                <p>냉장고 속 재료가 상해서 버리는 일이 너무 많아요</p>
+
+            <div class="work-card">
+                <div class="work-icon">🍽️</div>
+                <h3 class="work-title">오후 5시</h3>
+                <p class="work-desc">
+                    퇴근 후 앱을 열면 저녁 메뉴 3가지 추천 완료. 닭가슴살 샐러드로 선택! 필요한 재료는 퇴근길에 구매.
+                </p>
             </div>
-            <div class="problem-card">
-                <div class="problem-icon">⏰</div>
-                <h3>시간 부족</h3>
-                <p>맞벌이 가정, 돌봄 가족을 위한 식사 준비 시간이 부족해요</p>
+
+            <div class="work-card">
+                <div class="work-icon">👨‍🍳</div>
+                <h3 class="work-title">저녁 6시</h3>
+                <p class="work-desc">
+                    레시피 보며 20분 만에 완성! 어머니용은 저염·저당, 며느리용은 밥 빼고, 아버지용은 양 많이.
+                </p>
+            </div>
+
+            <div class="work-card">
+                <div class="work-icon">📊</div>
+                <h3 class="work-title">저녁 8시</h3>
+                <p class="work-desc">
+                    식사 사진 찍어서 기록. 오늘 섭취 칼로리 1,850kcal, 나트륨 2,100mg 자동 계산. 주간 리포트도 확인!
+                </p>
+            </div>
+
+            <div class="work-card">
+                <div class="work-icon">🎯</div>
+                <h3 class="work-title">다음날</h3>
+                <p class="work-desc">
+                    어제 나트륨이 높았다고 자동 인식. 오늘은 저염 식단 위주로 추천해줍니다. 점점 더 똑똑해져요!
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- 솔루션 섹션 -->
-    <section class="solution fade-in">
-        <div class="solution-content">
-            <div style="text-align: center; margin-bottom: 80px;">
-                <h2 class="section-title">케어밀이 제공하는 솔루션</h2>
-                <p class="section-subtitle">하나의 앱으로 모든 식단 관리를 해결하세요</p>
+    <!-- 사용자 후기 -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2 class="section-title">사용자들이 말하는 실제 효과</h2>
+            <p class="section-desc">케어밀로 건강을 되찾은 분들의 진짜 이야기</p>
+        </div>
+
+        <!-- 음식 갤러리 추가 -->
+        <div style="max-width: 1200px; margin: 0 auto 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div style="height: 180px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">
+                    🥙
+                </div>
+                <div style="padding: 15px; background: white;">
+                    <p style="font-weight: 700; margin-bottom: 5px;">당뇨 맞춤 식단</p>
+                    <p style="font-size: 13px; color: #6c757d;">혈당 영향 낮음</p>
+                </div>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div style="height: 180px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">
+                    🍱
+                </div>
+                <div style="padding: 15px; background: white;">
+                    <p style="font-weight: 700; margin-bottom: 5px;">다이어트 도시락</p>
+                    <p style="font-size: 13px; color: #6c757d;">350kcal 저칼로리</p>
+                </div>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div style="height: 180px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">
+                    🍝
+                </div>
+                <div style="padding: 15px; background: white;">
+                    <p style="font-weight: 700; margin-bottom: 5px;">가족 저녁 식사</p>
+                    <p style="font-size: 13px; color: #6c757d;">개인별 맞춤</p>
+                </div>
+            </div>
+            <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div style="height: 180px; background: linear-gradient(135deg, #FFE5D9 0%, #FFD4C4 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">
+                    🥘
+                </div>
+                <div style="padding: 15px; background: white;">
+                    <p style="font-weight: 700; margin-bottom: 5px;">고혈압 저염식</p>
+                    <p style="font-size: 13px; color: #6c757d;">나트륨 1500mg</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    당뇨 있으신 어머니 식사 준비가 너무 힘들었는데, 케어밀 쓰고 나서 <span class="result-highlight">혈당이 140→110으로 안정</span>되었어요. 매일 뭘 해드릴지 고민하던 스트레스가 완전히 사라졌습니다!
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">김</div>
+                    <div class="author-info">
+                        <h4>김미영 님</h4>
+                        <p>45세, 주부 · 3개월 사용</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="feature-row">
-                <div class="feature-text">
-                    <h3>📷 냉장고 스캔으로<br>간편한 재료 관리</h3>
-                    <p>스마트폰 카메라로 냉장고를 촬영하면 AI가 자동으로 식재료를 인식합니다. 인식되지 않은 재료는 직접 추가할 수 있어요.</p>
-                    <ul class="feature-list">
-                        <li>AI 이미지 인식으로 식재료 자동 파악</li>
-                        <li>수량과 단위까지 정확하게 관리</li>
-                        <li>유통기한 알림으로 식재료 낭비 제로</li>
-                        <li>재료 부족시 자동 쇼핑 리스트 생성</li>
-                    </ul>
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    맞벌이라 식사 준비할 시간이 없었는데, 냉장고 찍으면 바로 메뉴 나와서 <span class="result-highlight">주 5시간 절약</span>했어요. 그 시간에 아이들이랑 놀아줄 수 있어서 너무 좋아요.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">박</div>
+                    <div class="author-info">
+                        <h4>박준호 님</h4>
+                        <p>38세, 회사원 · 2개월 사용</p>
+                    </div>
                 </div>
-                <div class="feature-image">📱</div>
             </div>
 
-            <div class="feature-row">
-                <div class="feature-text">
-                    <h3>👨‍👩‍👧 가족 구성원별<br>맞춤형 식단 추천</h3>
-                    <p>당뇨병 환자, 다이어트 중인 가족, 성장기 자녀까지 각자에게 딱 맞는 식단을 동시에 제공합니다.</p>
-                    <ul class="feature-list">
-                        <li>만성질환(당뇨, 고혈압, 고지혈증) 맞춤 식단</li>
-                        <li>복용 중인 약물과 음식 상호작용 체크</li>
-                        <li>알레르기 자동 필터링</li>
-                        <li>오늘 활동량과 이미 먹은 음식 고려</li>
-                        <li>개인별 칼로리, 영양소 목표 설정</li>
-                    </ul>
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    다이어트 3번 실패했는데 케어밀로 <span class="result-highlight">8kg 감량 성공</span>! 운동량까지 고려해서 메뉴 추천해주니까 굶지 않고도 뺄 수 있었어요. 이제 습관이 되었습니다.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">이</div>
+                    <div class="author-info">
+                        <h4>이서영 님</h4>
+                        <p>32세, 회사원 · 4개월 사용</p>
+                    </div>
                 </div>
-                <div class="feature-image">🎯</div>
             </div>
 
-            <div class="feature-row">
-                <div class="feature-text">
-                    <h3>🤖 AI 기반<br>지능형 식단 자동 생성</h3>
-                    <p>냉장고 재료, 가족의 건강 상태, 오늘 활동량을 종합 분석해 최적의 식단을 3가지 추천해드려요.</p>
-                    <ul class="feature-list">
-                        <li>점심 과식? 저녁은 자동으로 가볍게 조정</li>
-                        <li>운동 많이 했다면 단백질 많은 메뉴 추천</li>
-                        <li>혈당 변화 추적으로 식단 최적화</li>
-                        <li>계절 제철 재료 우선 사용</li>
-                    </ul>
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    요양원 60명 어르신 개별 식단 관리가 불가능했는데, 케어밀 기관 플랜으로 <span class="result-highlight">업무 시간 40% 단축</span>하고 영양 관리 질은 2배 향상되었습니다. 정말 혁신적이에요!
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">최</div>
+                    <div class="author-info">
+                        <h4>최영희 영양사</h4>
+                        <p>OO요양원 · 6개월 사용</p>
+                    </div>
                 </div>
-                <div class="feature-image">🧠</div>
             </div>
 
-            <div class="feature-row">
-                <div class="feature-text">
-                    <h3>📊 통합 건강 데이터<br>한눈에 관리</h3>
-                    <p>갤럭시 워치, 애플 워치, 혈당측정기 등 다양한 디바이스와 연동해 건강 데이터를 통합 관리합니다.</p>
-                    <ul class="feature-list">
-                        <li>웨어러블 기기 자동 연동</li>
-                        <li>식사 기록, 운동량, 혈당 통합 분석</li>
-                        <li>주간/월간 건강 리포트 제공</li>
-                        <li>가족 간 건강 정보 공유 (선택)</li>
-                    </ul>
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    냉장고에 뭐가 있는지도 몰라서 매번 같은 거만 사고 재료 버리기 일쑤였는데, 이제 <span class="result-highlight">식재료 낭비 80% 감소</span>! 한 달에 식비 15만원 절약하고 있어요.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">정</div>
+                    <div class="author-info">
+                        <h4>정민수 님</h4>
+                        <p>29세, 1인가구 · 3개월 사용</p>
+                    </div>
                 </div>
-                <div class="feature-image">⌚</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    혼자 사는 어머니가 걱정되어 설치해드렸는데, 이제 매일 건강하게 드시는지 앱으로 확인할 수 있어요. <span class="result-highlight">혈압도 150→130으로 개선</span>되었습니다. 정말 감사해요.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">강</div>
+                    <div class="author-info">
+                        <h4>강지훈 님</h4>
+                        <p>52세, 자영업 · 5개월 사용</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 기능 섹션 -->
-    <section id="features" class="features fade-in">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h2 class="section-title" style="color: white;">모든 기능이 하나의 앱에</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">통합 관리로 편리함을 극대화했습니다</p>
+    <!-- 기능 비교 -->
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2 class="section-title">케어밀 vs 일반 레시피 앱</h2>
+            <p class="section-desc">단순 레시피 검색을 넘어선 통합 건강 관리</p>
         </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h4>🛒 스마트 쇼핑</h4>
-                <p>부족한 재료 자동 감지, 최저가 비교, 원클릭 주문까지</p>
+
+        <div class="feature-comparison">
+            <div class="comparison-header">
+                <div>기능</div>
+                <div style="text-align: center;">일반 앱</div>
+                <div style="text-align: center;">케어밀</div>
             </div>
-            <div class="feature-card">
-                <h4>👨‍⚕️ 영양사 상담</h4>
-                <p>전문 영양사와 1:1 화상 상담 (프리미엄)</p>
+            
+            <div class="comparison-row">
+                <div class="feature-name">냉장고 재료 자동 인식</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
             </div>
-            <div class="feature-card">
-                <h4>🏥 의료기관 연계</h4>
-                <p>병원 영양과 데이터 공유로 더 정확한 관리</p>
+
+            <div class="comparison-row">
+                <div class="feature-name">만성질환별 맞춤 식단</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
             </div>
-            <div class="feature-card">
-                <h4>👨‍👩‍👧‍👦 돌봄자 네트워크</h4>
-                <p>요양보호사, 가족과 식사 정보 실시간 공유</p>
+
+            <div class="comparison-row">
+                <div class="feature-name">가족 구성원별 개별 관리</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
             </div>
-            <div class="feature-card">
-                <h4>📈 상세 영양 분석</h4>
-                <p>84가지 영양소 추적, 미네랄까지 상세 분석</p>
+
+            <div class="comparison-row">
+                <div class="feature-name">하루 식사량 통합 분석</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
             </div>
-            <div class="feature-card">
-                <h4>🔔 스마트 알림</h4>
-                <p>식사 시간, 혈당 측정, 약 복용 알림</p>
+
+            <div class="comparison-row">
+                <div class="feature-name">운동량 연동 자동 조정</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
+            </div>
+
+            <div class="comparison-row">
+                <div class="feature-name">웨어러블 디바이스 연동</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
+            </div>
+
+            <div class="comparison-row">
+                <div class="feature-name">혈당·혈압 추적 관리</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
+            </div>
+
+            <div class="comparison-row">
+                <div class="feature-name">영양사 1:1 상담</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
+            </div>
+
+            <div class="comparison-row">
+                <div class="feature-name">스마트 쇼핑 연동</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
+            </div>
+
+            <div class="comparison-row">
+                <div class="feature-name">돌봄자 네트워크 공유</div>
+                <div class="check-no">✗</div>
+                <div class="check-yes">✓</div>
             </div>
         </div>
     </section>
 
-    <!-- 대상 고객 섹션 -->
-    <section id="target" class="target fade-in">
-        <h2 class="section-title">이런 분들께 추천해요</h2>
-        <p class="section-subtitle">케어밀은 모든 가정의 건강한 식탁을 만들어
+    <!-- 요금제 -->
+    <section id="pricing" class="pricing">
+        <div class="section-header">
+            <h2 class="section-title">간단하고 투명한 요금</h2>
+            <p class="section-desc">14일 무료 체험으로 모든 기능을 경험해보세요</p>
+        </div>
+
+        <div class="pricing-toggle">
+            <div class="toggle-container">
+                <button class="toggle-option active">월간</button>
+                <button class="toggle-option">연간 (2개월 무료)</button>
+            </div>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="price-card">
+                <div class="plan-badge">무료</div>
+                <h3 class="plan-name">베이직</h3>
+                <div class="plan-price">₩0<span class="price-period">/월</span></div>
+                <ul class="plan-features">
+                    <li><span class="feature-icon">✓</span> 기본 레시피 추천</li>
+                    <li><span class="feature-icon">✓</span> 1인 건강 프로필</li>
+                    <li><span class="feature-icon">✓</span> 주 3회 냉장고 스캔</li>
+                    <li><span class="feature-icon">✓</span> 식사 기록 기본</li>
+                    <li><span class="feature-icon">✓</span> 커뮤니티 접근</li>
+                </ul>
+                <button class="plan-button">무료로 시작하기</button>
+            </div>
+
+            <div class="price-card featured">
+                <div class="plan-badge">인기</div>
+                <h3 class="plan-name">프리미엄</h3>
+                <div class="plan-price">₩9,900<span class="price-period">/월</span></div>
+                <ul class="plan-features">
+                    <li><span class="feature-icon">✓</span> 무제한 냉장고 스캔</li>
+                    <li><span class="feature-icon">✓</span> 가족 4명 프로필</li>
+                    <li><span class="feature-icon">✓</span> 만성질환 맞춤 식단</li>
+                    <li><span class="feature-icon">✓</span> 영양사 월 1회 상담</li>
+                    <li><span class="feature-icon">✓</span> 웨어러블 연동</li>
+                    <li><span class="feature-icon">✓</span> 상세 영양 분석</li>
+                    <li><span class="feature-icon">✓</span> 스마트 쇼핑 연동</li>
+                    <li><span class="feature-icon">✓</span> 우선 지원</li>
+                </ul>
+                <button class="plan-button">14일 무료 체험</button>
+            </div>
+
+            <div class="price-card">
+                <div class="plan-badge">가족</div>
+                <h3 class="plan-name">패밀리</h3>
+                <div class="plan-price">₩14,900<span class="price-period">/월</span></div>
+                <ul class="plan-features">
+                    <li><span class="feature-icon">✓</span> 프리미엄 전체 기능</li>
+                    <li><span class="feature-icon">✓</span> 무제한 가족 프로필</li>
+                    <li><span class="feature-icon">✓</span> 돌봄자 네트워크</li>
+                    <li><span class="feature-icon">✓</span> 영양사 월 2회 상담</li>
+                    <li><span class="feature-icon">✓</span> 의료기관 연동</li>
+                    <li><span class="feature-icon">✓</span> 주간 건강 리포트</li>
+                    <li><span class="feature-icon">✓</span> 가족 정보 공유</li>
+                    <li><span class="feature-icon">✓</span> 전담 영양사 배정</li>
+                </ul>
+                <button class="plan-button">14일 무료 체험</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding: 40px; background: #FFF5F0; border-radius: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h3 style="font-size: 24px; margin-bottom: 15px;">🏥 요양시설·병원용 플랜</h3>
+            <p style="color: #6c757d; margin-bottom: 20px;">
+                여러 입소자의 개별 맞춤 식단을 효율적으로 관리하세요<br>
+                시설 규모에 맞춘 맞춤형 견적을 제공해드립니다
+            </p>
+            <a href="#contact" style="display: inline-block; padding: 15px 35px; background: #FF9A76; color: white; text-decoration: none; border-radius: 25px; font-weight: 700;">기관 문의하기</a>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="section-header">
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <p class="section-desc">궁금한 점이 있으신가요?</p>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>케어밀은 무료인가요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        네! 기본적인 기능은 완전 무료로 이용하실 수 있습니다. 기본 레시피 추천, 1인 프로필, 주 3회 냉장고 스캔 등 핵심 기능을 무료로 사용해보세요. 만성질환 맞춤 식단이나 가족 여러 명 관리가 필요하시면 프리미엄을 추천드립니다. 14일 무료 체험도 가능해요!
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>냉장고 재료 인식이 정확한가요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        AI 이미지 인식 기술로 약 85% 이상의 정확도를 자랑합니다. 인식되지 않은 재료는 직접 추가할 수 있으며, 사용할수록 학습해서 더 정확해집니다. 조명을 켜고 재료가 겹치지 않게 촬영하시면 더욱 정확하게 인식됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>어떤 만성질환을 지원하나요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        현재 당뇨병(1형, 2형), 고혈압, 고지혈증, 신장질환을 지원하며, 지속적으로 더 많은 질환을 추가하고 있습니다. 각 질환별로 대한당뇨병학회, 대한고혈압학회 등 전문 의료진과 협력하여 검증된 식이요법을 제공합니다. 복용 중인 약물과 음식 간 상호작용도 체크해드려요.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>가족 여러 명을 동시에 관리할 수 있나요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        네! 프리미엄 플랜은 최대 4명, 패밀리 플랜은 무제한으로 가족 구성원을 등록할 수 있습니다. 각 구성원마다 건강 상태, 운동량, 식사 기록을 개별 관리하며, 한 번의 냉장고 스캔으로 모든 가족의 맞춤 식단을 동시에 추천받을 수 있어요.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>웨어러블 기기 연동은 어떻게 하나요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        갤럭시 워치, 애플 워치, 샤오미 밴드, Fitbit 등 40개 이상의 웨어러블 기기와 연동 가능합니다. 앱 설정 메뉴에서 '디바이스 연동'을 선택하고 간단히 연결하면, 걸음 수, 소모 칼로리, 심박수 등이 자동으로 동기화되어 식단 추천에 반영됩니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>영양사 상담은 어떻게 받나요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        프리미엄 회원은 월 1회, 패밀리 회원은 월 2회 전문 영양사와 1:1 화상 상담을 받으실 수 있습니다. 앱에서 원하는 시간을 예약하시면 영양사가 회원님의 식사 기록과 건강 데이터를 미리 분석한 후 맞춤 상담을 진행합니다. 상담 후 개인화된 식단 플랜도 제공해드려요.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>개인정보는 안전하게 보호되나요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        네, 건강 정보는 암호화되어 안전하게 저장되며, ISMS 인증을 취득했습니다. 의료법과 개인정보보호법을 철저히 준수하며, 사용자 동의 없이는 절대 제3자에게 정보를 제공하지 않습니다. 가족 간 정보 공유도 본인이 승인한 경우에만 가능합니다.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>환불 정책은 어떻게 되나요?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        14일 무료 체험 기간 내에는 언제든지 취소 가능하며, 결제가 발생하지 않습니다. 유료 결제 후에도 서비스에 만족하지 못하시면 7일 이내 전액 환불해드립니다. 구독 해지는 언제든 가능하며, 해지 시점까지 서비스를 계속 이용하실 수 있어요.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 최종 CTA -->
+    <section id="signup" class="final-cta">
+        <div class="cta-content">
+            <h2>오늘부터 건강한 식탁 시작하세요</h2>
+            <p>
+                200만 가정이 선택한 케어밀과 함께<br>
+                가족의 건강을 지키세요
+            </p>
+            
+            <form class="email-form" onsubmit="handleSignup(event)">
+                <input type="email" class="email-input" placeholder="이메일 주소를 입력하세요" required>
+                <button type="submit" class="email-submit">14일 무료 체험</button>
+            </form>
+            
+            <p style="font-size: 14px; margin-top: 20px; opacity: 0.9;">
+                신용카드 등록 없이 바로 시작 · 언제든지 해지 가능
+            </p>
+
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <div class="badge-number">200만+</div>
+                    <div class="badge-label">사용자</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="badge-number">4.8★</div>
+                    <div class="badge-label">평점</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="badge-number">95%</div>
+                    <div class="badge-label">만족도</div>
+                </div>
+                <div class="trust-badge">
+                    <div class="badge-number">50만+</div>
+                    <div class="badge-label">월간 레시피</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>🍽️ 케어밀</h4>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.8; margin-top: 15px;">
+                    AI 기반 가족 맞춤 식단 관리 플랫폼<br>
+                    모든 가정의 건강한 식탁을 만듭니다
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h4>제품</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">기능</a></li>
+                    <li><a href="#pricing">요금제</a></li>
+                    <li><a href="#demo">데모 보기</a></li>
+                    <li><a href="#app">앱 다운로드</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>회사</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">회사 소개</a></li>
+                    <li><a href="#team">팀</a></li>
+                    <li><a href="#careers">채용</a></li>
+                    <li><a href="#blog">블로그</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>지원</h4>
+                <ul class="footer-links">
+                    <li><a href="#help">도움말</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                    <li><a href="#privacy">개인정보처리방침</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2024 케어밀(CareMeal). All rights reserved.</p>
+            <p style="margin-top: 10px;">사업자등록번호: 000-00-00000 | 대표: 홍길동</p>
+            <p style="margin-top: 5px;">이메일: hello@caremeal.kr | 전화: 02-0000-0000</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ 아코디언
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const allItems = document.querySelectorAll('.faq-item');
+            
+            allItems.forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            faqItem.classList.toggle('active');
+        }
+
+        // 이메일 가입
+        function handleSignup(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input').value;
+            alert('환영합니다! ' + email + '으로 가입 링크를 보내드렸습니다.\n\n14일 무료 체험을 시작하세요!');
+        }
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 요금제 토글
+        const toggleOptions = document.querySelectorAll('.toggle-option');
+        toggleOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                toggleOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 연간 선택시 가격 변경 (실제 구현시)
+                if (this.textContent.includes('연간')) {
+                    // 가격 업데이트 로직
+                }
+            });
+        });
+    </script>
+</body>
+</html>
